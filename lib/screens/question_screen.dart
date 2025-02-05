@@ -16,12 +16,21 @@ class _QuestionScreenState extends State<QuestionScreen> {
 
   var currentQuestionIndex =0;
   void answerQuestion(String selectedAnswer) {
+    final currentQuestion = questions[currentQuestionIndex];
+    bool isCorrect = selectedAnswer == currentQuestion.answer[0];
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(isCorrect ? 'Correct Answer!' :'Wrong Answer!',
+      style: const TextStyle(fontSize: 18),),
+      backgroundColor: isCorrect ? Colors.green : Colors.red,
+        duration: const Duration(seconds: 2),
+      ),
+    );
     widget.onSelectAnswer(selectedAnswer);
     setState(() {
+      currentQuestionIndex++;
+    });
 
-        currentQuestionIndex++;
-      }
-    );
   }
 
 
